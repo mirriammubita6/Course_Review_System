@@ -1,0 +1,90 @@
+body {
+    font-family: Arial, sans-serif;
+    background:url(itc.jpg);
+    margin: 0;
+    padding: 0;
+  }
+  
+  header {
+    background-color: #cde2e6;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  header h1 {
+    margin: 0;
+  }
+  
+  .dashboard-btn {
+    padding: 10px 20px;
+    background-color: #649dad;
+    border: none;
+    color: white;
+    border-radius: 5px;
+  }
+  
+  .course-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .course-card {
+    background-color: #fefefe;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  
+  .stars {
+    color: gold;
+    font-size: 1.2em;
+  }
+  
+  button {
+    margin-right: 10px;
+    padding: 8px 12px;
+    background-color: #7ca6b6;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 20px;
+    width: 300px;
+    border-radius: 10px;
+  }
+  
+
+  .admin-section {
+    background-color: #fff;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .admin-section h2 {
+    margin-top: 0;
+  }
+  
+  .admin-section button {
+    margin-right: 10px;
+    margin-top: 10px;
+  }
+  
