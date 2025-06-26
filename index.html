@@ -1,70 +1,841 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Review System</title>
-    <link rel="stylesheet" href="index.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduPathway - Your Academic Pathway Platform</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
+    :root {
+      --primary: #0056b3;
+      --primary-dark: #003d80;
+      --secondary: #ff6b6b;
+      --accent: #4ecdc4;
+      --light: #f7f9fc;
+      --dark: #333;
+      --gray: #6c757d;
+      --success: #28a745;
+    }
+
+    body {
+      background-color: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Header styles */
+    header {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      top: -50px;
+      left: -50px;
+      width: 150px;
+      height: 150px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      bottom: -30px;
+      right: -30px;
+      width: 100px;
+      height: 100px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    h1 {
+      font-size: 3.2rem;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+    }
+
+    .tagline {
+      font-size: 1.5rem;
+      font-weight: 300;
+      margin-bottom: 20px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    /* Navigation */
+    nav {
+      background-color: var(--primary-dark);
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.4rem;
+    }
+
+    .logo i {
+      margin-right: 10px;
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 0;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Hero section - FIXED IMAGE DISPLAY */
+    .hero {
+      position: relative;
+      height: 80vh;
+      min-height: 500px;
+      max-height: 700px;
+      overflow: hidden;
+    }
+
+    .slideshow-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1.2s ease-in-out;
+      background-size: contain;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+
+    .slide.active {
+      opacity: 1;
+    }
+
+    .slide-1 {
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80');
+    }
+
+    .slide-2 {
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80');
+    }
+
+    .slide-3 {
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+       url('images/itc-graduation.jpg');
+    }
+
+    .hero-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      text-align: center;
+      z-index: 10;
+      max-width: 800px;
+      width: 90%;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+    }
+
+    .hero-text h2 {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .hero-text p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .cta-buttons a {
+      display: inline-block;
+      background-color: var(--accent);
+      color: white;
+      padding: 14px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      border: 2px solid transparent;
+    }
+
+    .cta-buttons a:hover {
+      background-color: transparent;
+      border-color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .cta-buttons a.secondary {
+      background-color: transparent;
+      border: 2px solid white;
+    }
+
+    .cta-buttons a.secondary:hover {
+      background-color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* Features section */
+    .features {
+      padding: 80px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-title h2 {
+      font-size: 2.5rem;
+      color: var(--primary-dark);
+      margin-bottom: 15px;
+    }
+
+    .section-title p {
+      font-size: 1.2rem;
+      color: var(--gray);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 35px 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-top: 4px solid var(--accent);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+
+    .feature-card h3 {
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+      color: var(--primary-dark);
+    }
+
+    .feature-card p {
+      color: var(--gray);
+      margin-bottom: 20px;
+    }
+
+    .feature-card .feature-btn {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      padding: 10px 25px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+
+    .feature-card .feature-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    /* Apply section */
+    .apply-section {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    .apply-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .apply-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .apply-section p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .apply-button {
+      display: inline-block;
+      background-color: white;
+      color: var(--primary);
+      padding: 16px 40px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 1.2rem;
+      font-weight: 700;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      border: 2px solid transparent;
+    }
+
+    .apply-button:hover {
+      background-color: var(--accent);
+      color: white;
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Testimonials */
+    .testimonials {
+      padding: 80px 20px;
+      background-color: #f0f7ff;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .testimonial-card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
+
+    .testimonial-card::before {
+      content: "";
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 4rem;
+      color: var(--accent);
+      opacity: 0.2;
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+
+    .testimonial-content {
+      margin-top: 20px;
+      color: var(--gray);
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .author-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-right: 15px;
+    }
+
+    .author-info h4 {
+      color: var(--primary-dark);
+    }
+
+    .author-info p {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    /* Stats section */
+    .stats {
+      background: var(--primary-dark);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .stats-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+    }
+
+    .stat-box {
+      padding: 20px;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--accent);
+    }
+
+    .stat-label {
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--primary-dark);
+      color: white;
+      padding: 50px 20px 20px;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      text-align: left;
+      margin-bottom: 40px;
+    }
+
+    .footer-section h3 {
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-section h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: color 0.3s;
+      display: flex;
+      align-items: center;
+    }
+
+    .footer-links a i {
+      margin-right: 10px;
+      color: var(--accent);
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    .copyright {
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      max-width: 1200px;
+      margin: 0 auto;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero-text h2 {
+        font-size: 2rem;
+      }
+      
+      .nav-links {
+        gap: 15px;
+      }
+      
+      .cta-buttons {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .cta-buttons a {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+      }
+      
+      .hero {
+        height: 70vh;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .tagline {
+        font-size: 1.2rem;
+      }
+      
+      .hero-text h2 {
+        font-size: 1.8rem;
+      }
+      
+      .nav-container {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .section-title h2 {
+        font-size: 2rem;
+      }
+      
+      .hero {
+        height: 80vh;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to the Course Review System</h1>
-    </header>
+  <!-- Header -->
+  <header>
+    <div class="header-content">
+      <h1>EduPathway</h1>
+      <p class="tagline">Your guide to the right education journey</p>
+      <p>Smart course decisions for students, parents, and educators</p>
+    </div>
+  </header>
 
-    <nav>
-        <div><a href="#">Home</a></div>
-        <div>
-            <a href="login.html">Login</a>
-            <a href="#">Contact</a>
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <a href="#" class="logo">
+        <i class="fas fa-graduation-cap"></i>
+        EduPathway
+      </a>
+      <div class="nav-links">
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="#"><i class="fas fa-book-open"></i> Programmes</a
+        <a href="Institution.html"><i class="fas fa-users"></i> For Institutions</a>
+        <a href="#"><i class="fas fa-phone"></i> Contact</a>
+        <a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="slideshow-container">
+      <div class="slide slide-1 active"></div>
+      <div class="slide slide-2"></div>
+      <div class="slide slide-3"></div>
+      
+      <div class="hero-text">
+        <h2>Find your future. Choose your path.</h2>
+        <p>Explore courses, read real student reviews, and make informed decisions about your education journey.</p>
+        <div class="cta-buttons">
+          <a href="login.html"><i class="fas fa-user-plus"></i> Create Account</a>
+          <a href="courses" class="secondary"><i class="fas fa-search"></i> Explore Courses</a>
         </div>
-    </nav>
+      </div>
+    </div>
+  </section>
 
-    <section class="hero">
-        <div class="slideshow-container">
-          <img class="slide" src="images/students.jpg" />
-          <img class="slide" src="images/graduate.jpg" />
-          <img class="slide" src="images/smile.jpg" />
-          
-          <div class="hero-text">
-            <h1>Empowering Feedback. Improving Courses.</h1>
-            <p>Your voice helps shape better education. Rate, review, and explore university courses.</p>
-            <div class="cta-buttons">
-              <a href="login.html">Login</a>
-              <a href="#">Learn More</a>
-            </div>
+  <!-- Features Section -->
+  <section class="features">
+    <div class="section-title">
+      <h2>How EduPathway Helps You</h2>
+      <p>Our platform provides the tools and insights you need to make the best educational decisions</p>
+    </div>
+    
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-user-graduate"></i>
+        </div>
+        <h3>For Students</h3>
+        <p>Browse reviews, compare courses, and choose the best academic path based on real student experiences and insights.</p>
+        <a href="login.html" class="feature-btn">Student Resources</a>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-chalkboard-teacher"></i>
+        </div>
+        <h3>For Lecturers</h3>
+        <p>Gain valuable feedback and improve teaching methods with authentic student reviews and course analytics.</p>
+        <a href="login.html" class="feature-btn">Lecturer Portal</a>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-tools"></i>
+        </div>
+        <h3>For Admin</h3>
+        <p>Manage accounts, update course information, and monitor platform activity with our comprehensive admin tools.</p>
+        <a href="#" class="feature-btn">Admin Dashboard</a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Stats Section -->
+  <section class="stats">
+    <div class="stats-container">
+      <div class="stat-box">
+        <div class="stat-number">5,000+</div>
+        <div class="stat-label">Courses</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">15,000+</div>
+        <div class="stat-label">Student Reviews</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">98%</div>
+        <div class="stat-label">Satisfaction Rate</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">50+</div>
+        <div class="stat-label">Partner Institutions</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials">
+    <div class="section-title">
+      <h2>Success Stories</h2>
+      <p>Hear from students and educators who transformed their academic journey with EduPathway</p>
+    </div>
+    
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          "EduPathway helped me choose the perfect course for my career goals. The student reviews gave me insights I couldn't find anywhere else!"
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">SJ</div>
+          <div class="author-info">
+            <h4>Idah Nkhata</h4>
+            <p>Computer Science Student</p>
           </div>
         </div>
-      </section>
+      </div>
       
-
-    <section class="features" >
-        <div class="features-box">
-            <h3>For Students</h3>
-            <p>
-                Rate and Review your courses to share your learning experience
-            </p>
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          "As a parent, I appreciate the transparency EduPathway provides. It helped my daughter make an informed decision about her future."
         </div>
-        <div class="features-box">
-            <h3>For Lecturer</h3>
-            <p>
-                Gain insights from students Feedback and improve course delivery.
-            </p>            
+        <div class="testimonial-author">
+          <div class="author-avatar">MR</div>
+          <div class="author-info">
+            <h4>Mrs Mubita</h4>
+            <p>Parent of High School Senior</p>
+          </div>
         </div>
-        
-    <div class="features-box">
-        <h3>For Admin</h3>
-        <p>
-            Manage users, assign lecturers, and monitor course reviews
-        </p>
+      </div>
+      
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          "The feedback we get through EduPathway has been invaluable for improving our curriculum and teaching methods."
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">DP</div>
+          <div class="author-info">
+            <h4>Mr Lloyd </h4>
+            <p>Professor & Department Head</p>
+          </div>
+        </div>
+      </div>
     </div>
-    </section>
+  </section>
 
-    <footer>
-        &copy; 2025 Course Review System | Developed by Mirriam Mubita
-    </footer>
+  <!-- Apply Section -->
+  <section class="apply-section">
+    <div class="apply-content">
+      <h2>🎓 Ready to Start Your Journey?</h2>
+      <p>Apply to available programs directly through EduPathway and take the first step toward your future</p>
+      <a href="apply.html" class="apply-button">Apply Now <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </section>
 
-    <script src="index.js" defer></script>
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>About EduPathway</h3>
+        <p>EduPathway is a smart course decision platform that helps students, parents, and future applicants find and follow the best academic path based on reviews, insights, and smart recommendations.</p>
+      </div>
       
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Courses</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Student Reviews</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> For Institutions</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Contact Us</h3>
+        <ul class="footer-links">
+          <li><a href="#"><i class="fas fa-map-marker-alt"></i> 123 Education St, Campus City</a></li>
+          <li><a href="mailto:info@edupathway.com"><i class="fas fa-envelope"></i> info@edupathway.com</a></li>
+          <li><a href="tel:+11234567890"><i class="fas fa-phone"></i> +1 (123) 456-7890</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="copyright">
+      <p>&copy; 2025 EduPathway | Developed by Mirriam Mubita & Team</p>
+    </div>
+  </footer>
+
+  <script>
+    // Slideshow functionality
+    let slideIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    
+    function showSlides() {
+      // Hide all slides
+      slides.forEach(slide => {
+        slide.classList.remove('active');
+      });
+      
+      // Show current slide
+      slides[slideIndex].classList.add('active');
+      
+      // Move to next slide
+      slideIndex = (slideIndex + 1) % slides.length;
+      
+      // Change slide every 5 seconds
+      setTimeout(showSlides, 5000);
+    }
+    
+    // Initialize slideshow
+    document.addEventListener('DOMContentLoaded', showSlides);
+  </script>
 </body>
 </html>
