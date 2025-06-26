@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduPathway - For Institutions</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    :root {
+      --primary: #0056b3;
+      --primary-dark: #003d80;
+      --secondary: #ff6b6b;
+      --accent: #4ecdc4;
+      --light: #f7f9fc;
+      --dark: #333;
+      --gray: #6c757d;
+      --success: #28a745;
+      --institutional-blue: #1a3a6c;
+    }
+
+    body {
+      background-color: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    /* Header styles */
+    header {
+      background: linear-gradient(135deg, var(--institutional-blue), var(--primary-dark));
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      top: -50px;
+      left: -50px;
+      width: 150px;
+      height: 150px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      bottom: -30px;
+      right: -30px;
+      width: 100px;
+      height: 100px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    h1 {
+      font-size: 3.2rem;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+    }
+
+    .tagline {
+      font-size: 1.5rem;
+      font-weight: 300;
+      margin-bottom: 20px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    /* Navigation */
+    nav {
+      background-color: var(--institutional-blue);
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.4rem;
+    }
+
+    .logo i {
+      margin-right: 10px;
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 0;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Hero section for institutions */
+    .institutions-hero {
+      position: relative;
+      background:  url('images/itc-graduation.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 70vh;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      padding: 20px;
+    }
+
+    .hero-content {
+      max-width: 800px;
+    }
+
+    .hero-content h2 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .hero-content p {
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .hero-btn {
+      display: inline-block;
+      background-color: var(--accent);
+      color: white;
+      padding: 14px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      border: 2px solid transparent;
+    }
+
+    .hero-btn:hover {
+      background-color: transparent;
+      border-color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-btn.secondary {
+      background-color: transparent;
+      border: 2px solid white;
+    }
+
+    .hero-btn.secondary:hover {
+      background-color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* Benefits section */
+    .benefits {
+      padding: 80px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-title h2 {
+      font-size: 2.5rem;
+      color: var(--institutional-blue);
+      margin-bottom: 15px;
+    }
+
+    .section-title p {
+      font-size: 1.2rem;
+      color: var(--gray);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .benefit-card {
+      background: white;
+      padding: 35px 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-left: 4px solid var(--accent);
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .benefit-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: var(--institutional-blue);
+    }
+
+    .benefit-card h3 {
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+      color: var(--institutional-blue);
+    }
+
+    .benefit-card p {
+      color: var(--gray);
+      margin-bottom: 20px;
+    }
+
+    /* Platform features */
+    .platform-features {
+      background-color: #f0f7ff;
+      padding: 80px 20px;
+    }
+
+    .features-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .features-content {
+      padding-right: 30px;
+    }
+
+    .features-image {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .features-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .features-list {
+      margin-top: 30px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 25px;
+    }
+
+    .feature-icon {
+      background: var(--accent);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+
+    .feature-text h4 {
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+      color: var(--institutional-blue);
+    }
+
+    /* Stats section */
+    .stats {
+      background: linear-gradient(135deg, var(--institutional-blue), var(--primary-dark));
+      color: white;
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    .stats-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+    }
+
+    .stat-box {
+      padding: 20px;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--accent);
+    }
+
+    .stat-label {
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    /* Pricing section */
+    .pricing {
+      padding: 80px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .pricing-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .pricing-header {
+      background: var(--institutional-blue);
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    .pricing-header h3 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .pricing-price {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .pricing-period {
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+
+    .pricing-features {
+      padding: 30px;
+    }
+
+    .pricing-features ul {
+      list-style: none;
+      margin-bottom: 30px;
+    }
+
+    .pricing-features li {
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+    }
+
+    .pricing-features li:last-child {
+      border-bottom: none;
+    }
+
+    .pricing-features li i {
+      color: var(--accent);
+      margin-right: 10px;
+    }
+
+    .pricing-cta {
+      padding: 0 30px 30px;
+      text-align: center;
+    }
+
+    /* Testimonials */
+    .testimonials {
+      background-color: #f0f7ff;
+      padding: 80px 20px;
+    }
+
+    .testimonials-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .testimonial-card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
+
+    .testimonial-card::before {
+      content: "";
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 4rem;
+      color: var(--accent);
+      opacity: 0.2;
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+
+    .testimonial-content {
+      margin-top: 20px;
+      color: var(--gray);
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .author-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-right: 15px;
+    }
+
+    .author-info h4 {
+      color: var(--primary-dark);
+    }
+
+    .author-info p {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, var(--institutional-blue), var(--primary-dark));
+      color: white;
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    .cta-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .cta-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .cta-section p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background-color: white;
+      color: var(--institutional-blue);
+      padding: 16px 40px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 1.2rem;
+      font-weight: 700;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      border: 2px solid transparent;
+    }
+
+    .cta-button:hover {
+      background-color: var(--accent);
+      color: white;
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--institutional-blue);
+      color: white;
+      padding: 50px 20px 20px;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      text-align: left;
+      margin-bottom: 40px;
+    }
+
+    .footer-section h3 {
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-section h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: color 0.3s;
+      display: flex;
+      align-items: center;
+    }
+
+    .footer-links a i {
+      margin-right: 10px;
+      color: var(--accent);
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    .copyright {
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      max-width: 1200px;
+      margin: 0 auto;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero-content h2 {
+        font-size: 2.5rem;
+      }
+      
+      .nav-links {
+        gap: 15px;
+      }
+      
+      .hero-buttons {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .hero-btn {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+      }
+      
+      .features-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .features-content {
+        padding-right: 0;
+        margin-bottom: 30px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .tagline {
+        font-size: 1.2rem;
+      }
+      
+      .hero-content h2 {
+        font-size: 2rem;
+      }
+      
+      .nav-container {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .section-title h2 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-content">
+      <h1>EduPathway</h1>
+      <p class="tagline">Partnering with Institutions for Academic Excellence</p>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <a href="#" class="logo">
+        <i class="fas fa-graduation-cap"></i>
+        EduPathway
+      </a>
+      <div class="nav-links">
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="login.html"><i class="fas fa-sign-in-alt"></i> Institution Login</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Institutions Hero Section -->
+  <section class="institutions-hero">
+    <div class="hero-content">
+      <h2>Empower Your Institution with EduPathway</h2>
+      <p>Join our network of leading educational institutions to showcase your programs, attract qualified students, and streamline your admissions process.</p>
+      <div class="hero-buttons">
+        <a href="#partner" class="hero-btn"><i class="fas fa-handshake"></i> Become a Partner</a>
+        <a href="#features" class="hero-btn secondary"><i class="fas fa-video"></i> Schedule a Demo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section class="benefits" id="benefits">
+    <div class="section-title">
+      <h2>Why Institutions Choose EduPathway</h2>
+      <p>Discover how EduPathway can transform your institution's recruitment and admissions process</p>
+    </div>
+    
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <h3>Increased Visibility</h3>
+        <p>Reach thousands of prospective students actively searching for programs like yours.</p>
+      </div>
+      
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <h3>Higher Quality Applications</h3>
+        <p>Attract students who are genuinely interested and qualified for your programs.</p>
+      </div>
+      
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <i class="fas fa-tachometer-alt"></i>
+        </div>
+        <h3>Streamlined Admissions</h3>
+        <p>Manage applications, track status, and communicate with applicants all in one platform.</p>
+      </div>
+      
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <i class="fas fa-comment-alt"></i>
+        </div>
+        <h3>Valuable Feedback</h3>
+        <p>Gain insights from student reviews to improve your programs and services.</p>
+      </div>
+      
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <i class="fas fa-cogs"></i>
+        </div>
+        <h3>Customizable Platform</h3>
+        <p>Tailor the platform to match your institution's branding and specific needs.</p>
+      </div>
+      
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <i class="fas fa-headset"></i>
+        </div>
+        <h3>Dedicated Support</h3>
+        <p>Access our team of experts for onboarding, training, and ongoing assistance.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Platform Features -->
+  <section class="platform-features" id="features">
+    <div class="features-container">
+      <div class="features-content">
+        <div class="section-title" style="text-align: left;">
+          <h2>Powerful Tools for Institutions</h2>
+          <p>Our comprehensive platform is designed to meet the unique needs of educational institutions</p>
+        </div>
+        
+        <div class="features-list">
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-book"></i>
+            </div>
+            <div class="feature-text">
+              <h4>Program Management</h4>
+              <p>Easily create, update, and manage all your academic programs in one centralized location.</p>
+            </div>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-user-graduate"></i>
+            </div>
+            <div class="feature-text">
+              <h4>Application Tracking</h4>
+              <p>Monitor application status, review documents, and make admission decisions efficiently.</p>
+            </div>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-comments"></i>
+            </div>
+            <div class="feature-text">
+              <h4>Student Communication</h4>
+              <p>Direct messaging system to engage with prospective students throughout their journey.</p>
+            </div>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon">
+              <i class="fas fa-chart-pie"></i>
+            </div>
+            <div class="feature-text">
+              <h4>Analytics Dashboard</h4>
+              <p>Track key metrics, application trends, and program performance with detailed reports.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="features-image">
+        <img src="images/graduate-today.jpg" alt="EduPathway Institution Dashboard">
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats">
+    <div class="stats-container">
+      <div class="stat-box">
+        <div class="stat-number">250+</div>
+        <div class="stat-label">Partner Institutions</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">95%</div>
+        <div class="stat-label">Satisfaction Rate</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">50K+</div>
+        <div class="stat-label">Student Applications</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number">40%</div>
+        <div class="stat-label">Increase in Applications</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="pricing" id="pricing">
+    <div class="section-title">
+      <h2>Flexible Partnership Plans</h2>
+      <p>Choose the plan that works best for your institution's needs and budget</p>
+    </div>
+    
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-header">
+          <h3>Essential</h3>
+          <div class="pricing-price">K299<span>/month</span></div>
+          <div class="pricing-period">For smaller institutions</div>
+        </div>
+        <div class="pricing-features">
+          <ul>
+            <li><i class="fas fa-check"></i> Up to 10 programs</li>
+            <li><i class="fas fa-check"></i> Basic program listings</li>
+            <li><i class="fas fa-check"></i> 100 application slots</li>
+            <li><i class="fas fa-check"></i> Standard support</li>
+            <li><i class="fas fa-times"></i> Advanced analytics</li>
+            <li><i class="fas fa-times"></i> Custom branding</li>
+          </ul>
+        </div>
+        <div class="pricing-cta">
+          <a href="partner.html" class="hero-btn">Get Started</a>
+        </div>
+      </div>
+      
+      <div class="pricing-card">
+        <div class="pricing-header" style="background: var(--accent);">
+          <h3>Professional</h3>
+          <div class="pricing-price">K699<span>/month</span></div>
+          <div class="pricing-period">Most popular plan</div>
+        </div>
+        <div class="pricing-features">
+          <ul>
+            <li><i class="fas fa-check"></i> Up to 50 programs</li>
+            <li><i class="fas fa-check"></i> Enhanced program listings</li>
+            <li><i class="fas fa-check"></i> 500 application slots</li>
+            <li><i class="fas fa-check"></i> Priority support</li>
+            <li><i class="fas fa-check"></i> Advanced analytics</li>
+            <li><i class="fas fa-check"></i> Custom branding</li>
+          </ul>
+        </div>
+        <div class="pricing-cta">
+          <a href="partner.html" class="hero-btn" style="background: var(--accent);">Get Started</a>
+        </div>
+      </div>
+      
+      <div class="pricing-card">
+        <div class="pricing-header">
+          <h3>Enterprise</h3>
+          <div class="pricing-price">Custom</div>
+          <div class="pricing-period">For large institutions</div>
+        </div>
+        <div class="pricing-features">
+          <ul>
+            <li><i class="fas fa-check"></i> Unlimited programs</li>
+            <li><i class="fas fa-check"></i> Premium program listings</li>
+            <li><i class="fas fa-check"></i> Unlimited applications</li>
+            <li><i class="fas fa-check"></i> 24/7 dedicated support</li>
+            <li><i class="fas fa-check"></i> Comprehensive analytics</li>
+            <li><i class="fas fa-check"></i> Full customization</li>
+          </ul>
+        </div>
+        <div class="pricing-cta">
+          <a href="partner.html" class="hero-btn">Contact Sales</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials">
+    <div class="section-title">
+      <h2>What Our Partners Say</h2>
+      <p>Hear from institutions that have transformed their recruitment with EduPathway</p>
+    </div>
+    
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          "Since partnering with EduPathway, we've seen a 40% increase in qualified applications. The platform has revolutionized how we connect with prospective students."
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">NH</div>
+          <div class="author-info">
+            <h4>Mr.Hamalila</h4>
+            <p>Director of Admissions, Tech University</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          "The analytics dashboard has provided invaluable insights into our recruitment efforts. We've optimized our marketing based on real data from EduPathway."
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">IN</div>
+          <div class="author-info">
+            <h4>Idah Nkhata</h4>
+            <p>Dean of Enrollment, State College</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="testimonial-card">
+        <div class="testimonial-content">
+          "The application management tools have saved our administrative staff countless hours. We process applications twice as fast as before."
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">CT</div>
+          <div class="author-info">
+            <h4>Charles Tembo</h4>
+            <p>Registrar, Metropolitan Institute</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section" id="partner">
+    <div class="cta-content">
+      <h2>Ready to Transform Your Institution?</h2>
+      <p>
+        Join hundreds of leading educational institutions already benefiting from EduPathway
+      </p>
+      <a href="partner.html" class="cta-button">Become a Partner Today <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>EduPathway for Institutions</h3>
+        <p>
+          Empowering educational institutions with innovative tools to attract, engage, and enroll the best students.
+        </p>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Platform Features</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Pricing Plans</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Success Stories</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Resource Center</a></li>
+          <li><a href="#"><i class="fas fa-chevron-right"></i> Schedule a Demo</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Contact Us</h3>
+        <ul class="footer-links">
+          <li><a href="#"><i class="fas fa-map-marker-alt"></i>Buyantanshi Road, Campus Lusaka</a></li>
+          <li><a href="mailto:mubitamirriam6@gmail.com"><i class="fas fa-envelope"></i> institutions@edupathway.com</a></li>
+          <li><a href="tel:+260777579482"><i class="fas fa-phone"></i>+260-777-579-482</a></li>
+          <li><a href="#"><i class="fas fa-calendar-alt"></i> Schedule a Consultation</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="copyright">
+      <p>&copy; 2025 EduPathway | Institutional Partnerships | Developed by Mirriam Mubita </p>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+    
+    // Add active class to current nav item
+    const currentLocation = location.href;
+    const menuItems = document.querySelectorAll('.nav-links a');
+    const menuLength = menuItems.length;
+    
+    for (let i = 0; i < menuLength; i++) {
+      if (menuItems[i].href === currentLocation) {
+        menuItems[i].classList.add("active");
+      }
+    }
+  </script>
+</body>
+</html>
