@@ -1,841 +1,1421 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EduPathway - Your Academic Pathway Platform</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    /* Base styles */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    :root {
-      --primary: #0056b3;
-      --primary-dark: #003d80;
-      --secondary: #ff6b6b;
-      --accent: #4ecdc4;
-      --light: #f7f9fc;
-      --dark: #333;
-      --gray: #6c757d;
-      --success: #28a745;
-    }
-
-    body {
-      background-color: var(--light);
-      color: var(--dark);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    /* Header styles */
-    header {
-      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-      color: white;
-      padding: 20px 0;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      position: relative;
-      overflow: hidden;
-    }
-
-    header::before {
-      content: "";
-      position: absolute;
-      top: -50px;
-      left: -50px;
-      width: 150px;
-      height: 150px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-    }
-
-    header::after {
-      content: "";
-      position: absolute;
-      bottom: -30px;
-      right: -30px;
-      width: 100px;
-      height: 100px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-    }
-
-    .header-content {
-      position: relative;
-      z-index: 2;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    h1 {
-      font-size: 3.2rem;
-      margin-bottom: 10px;
-      letter-spacing: -0.5px;
-    }
-
-    .tagline {
-      font-size: 1.5rem;
-      font-weight: 300;
-      margin-bottom: 20px;
-      color: rgba(255, 255, 255, 0.9);
-    }
-
-    /* Navigation */
-    nav {
-      background-color: var(--primary-dark);
-      padding: 15px 0;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .nav-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      color: white;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 1.4rem;
-    }
-
-    .logo i {
-      margin-right: 10px;
-      color: var(--accent);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 25px;
-    }
-
-    .nav-links a {
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-      padding: 8px 0;
-      position: relative;
-      transition: color 0.3s;
-    }
-
-    .nav-links a:hover {
-      color: var(--accent);
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--accent);
-      transition: width 0.3s;
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    /* Hero section - FIXED IMAGE DISPLAY */
-    .hero {
-      position: relative;
-      height: 80vh;
-      min-height: 500px;
-      max-height: 700px;
-      overflow: hidden;
-    }
-
-    .slideshow-container {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
-
-    .slide {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      transition: opacity 1.2s ease-in-out;
-      background-size: contain;
-      background-position: center center;
-      background-repeat: no-repeat;
-    }
-
-    .slide.active {
-      opacity: 1;
-    }
-
-    .slide-1 {
-      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80');
-    }
-
-    .slide-2 {
-      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80');
-    }
-
-    .slide-3 {
-      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-       url('images/itc-graduation.jpg');
-    }
-
-    .hero-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: white;
-      text-align: center;
-      z-index: 10;
-      max-width: 800px;
-      width: 90%;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 10px;
-    }
-
-    .hero-text h2 {
-      font-size: 2.8rem;
-      margin-bottom: 20px;
-      line-height: 1.2;
-    }
-
-    .hero-text p {
-      font-size: 1.2rem;
-      margin-bottom: 30px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .cta-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .cta-buttons a {
-      display: inline-block;
-      background-color: var(--accent);
-      color: white;
-      padding: 14px 32px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-size: 1.1rem;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      border: 2px solid transparent;
-    }
-
-    .cta-buttons a:hover {
-      background-color: transparent;
-      border-color: white;
-      transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    .cta-buttons a.secondary {
-      background-color: transparent;
-      border: 2px solid white;
-    }
-
-    .cta-buttons a.secondary:hover {
-      background-color: var(--accent);
-      border-color: var(--accent);
-    }
-
-    /* Features section */
-    .features {
-      padding: 80px 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 60px;
-    }
-
-    .section-title h2 {
-      font-size: 2.5rem;
-      color: var(--primary-dark);
-      margin-bottom: 15px;
-    }
-
-    .section-title p {
-      font-size: 1.2rem;
-      color: var(--gray);
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-    }
-
-    .feature-card {
-      background: white;
-      padding: 35px 30px;
-      border-radius: 12px;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-      text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      border-top: 4px solid var(--accent);
-    }
-
-    .feature-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-    }
-
-    .feature-icon {
-      font-size: 3rem;
-      margin-bottom: 20px;
-      color: var(--primary);
-    }
-
-    .feature-card h3 {
-      font-size: 1.6rem;
-      margin-bottom: 15px;
-      color: var(--primary-dark);
-    }
-
-    .feature-card p {
-      color: var(--gray);
-      margin-bottom: 20px;
-    }
-
-    .feature-card .feature-btn {
-      display: inline-block;
-      background: var(--primary);
-      color: white;
-      padding: 10px 25px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 500;
-      transition: all 0.3s;
-    }
-
-    .feature-card .feature-btn:hover {
-      background: var(--primary-dark);
-    }
-
-    /* Apply section */
-    .apply-section {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: white;
-      padding: 80px 20px;
-      text-align: center;
-    }
-
-    .apply-content {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .apply-section h2 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-    }
-
-    .apply-section p {
-      font-size: 1.2rem;
-      margin-bottom: 30px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .apply-button {
-      display: inline-block;
-      background-color: white;
-      color: var(--primary);
-      padding: 16px 40px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-size: 1.2rem;
-      font-weight: 700;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      border: 2px solid transparent;
-    }
-
-    .apply-button:hover {
-      background-color: var(--accent);
-      color: white;
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-    }
-
-    /* Testimonials */
-    .testimonials {
-      padding: 80px 20px;
-      background-color: #f0f7ff;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-      margin-top: 40px;
-    }
-
-    .testimonial-card {
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-      position: relative;
-    }
-
-    .testimonial-card::before {
-      content: "";
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      font-size: 4rem;
-      color: var(--accent);
-      opacity: 0.2;
-      font-family: Georgia, serif;
-      line-height: 1;
-    }
-
-    .testimonial-content {
-      margin-top: 20px;
-      color: var(--gray);
-      font-style: italic;
-    }
-
-    .testimonial-author {
-      display: flex;
-      align-items: center;
-      margin-top: 20px;
-    }
-
-    .author-avatar {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background-color: var(--primary);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      margin-right: 15px;
-    }
-
-    .author-info h4 {
-      color: var(--primary-dark);
-    }
-
-    .author-info p {
-      color: var(--gray);
-      font-size: 0.9rem;
-    }
-
-    /* Stats section */
-    .stats {
-      background: var(--primary-dark);
-      color: white;
-      padding: 60px 20px;
-      text-align: center;
-    }
-
-    .stats-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 30px;
-    }
-
-    .stat-box {
-      padding: 20px;
-    }
-
-    .stat-number {
-      font-size: 3rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: var(--accent);
-    }
-
-    .stat-label {
-      font-size: 1.2rem;
-      font-weight: 500;
-    }
-
-    /* Footer */
-    footer {
-      background-color: var(--primary-dark);
-      color: white;
-      padding: 50px 20px 20px;
-      text-align: center;
-    }
-
-    .footer-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 40px;
-      text-align: left;
-      margin-bottom: 40px;
-    }
-
-    .footer-section h3 {
-      font-size: 1.4rem;
-      margin-bottom: 20px;
-      position: relative;
-      padding-bottom: 10px;
-    }
-
-    .footer-section h3::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 50px;
-      height: 2px;
-      background: var(--accent);
-    }
-
-    .footer-links {
-      list-style: none;
-    }
-
-    .footer-links li {
-      margin-bottom: 12px;
-    }
-
-    .footer-links a {
-      color: rgba(255, 255, 255, 0.8);
-      text-decoration: none;
-      transition: color 0.3s;
-      display: flex;
-      align-items: center;
-    }
-
-    .footer-links a i {
-      margin-right: 10px;
-      color: var(--accent);
-    }
-
-    .footer-links a:hover {
-      color: var(--accent);
-    }
-
-    .copyright {
-      padding-top: 20px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      max-width: 1200px;
-      margin: 0 auto;
-      color: rgba(255, 255, 255, 0.7);
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 2.5rem;
-      }
-      
-      .hero-text h2 {
-        font-size: 2rem;
-      }
-      
-      .nav-links {
-        gap: 15px;
-      }
-      
-      .cta-buttons {
-        flex-direction: column;
-        gap: 15px;
-      }
-      
-      .cta-buttons a {
-        width: 100%;
-        max-width: 300px;
-        margin: 0 auto;
-      }
-      
-      .hero {
-        height: 70vh;
-      }
-    }
-
-    @media (max-width: 480px) {
-      h1 {
-        font-size: 2rem;
-      }
-      
-      .tagline {
-        font-size: 1.2rem;
-      }
-      
-      .hero-text h2 {
-        font-size: 1.8rem;
-      }
-      
-      .nav-container {
-        flex-direction: column;
-        gap: 15px;
-      }
-      
-      .section-title h2 {
-        font-size: 2rem;
-      }
-      
-      .hero {
-        height: 80vh;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduPathway - Your Educational Journey</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Raleway:wght@800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0056b3;
+            --primary-dark: #003d80;
+            --secondary: #ff6b6b;
+            --accent: #4ecdc4;
+            --light: #f7f9fc;
+            --dark: #333;
+            --gray: #6c757d;
+            --success: #28a745;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        body {
+            background-color: #f9fbfd;
+            color: var(--dark);
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e7eb 100%);
+            position: relative;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: rgba(0, 61, 128, 0.95);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.8rem;
+            transition: var(--transition);
+            font-family: 'Raleway', sans-serif;
+            z-index: 1001;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent);
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 0;
+            position: relative;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.1rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-btn {
+            background: var(--accent);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            margin-left: 20px;
+            border: 2px solid transparent;
+            white-space: nowrap;
+        }
+
+        .nav-btn:hover {
+            background: transparent;
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            transition: all 0.3s ease;
+            background-color: white;
+            border-radius: 2px;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 350px;
+            height: 100vh;
+            background-color: rgba(0, 61, 128, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            padding: 100px 30px 30px;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .mobile-menu a:hover {
+            color: var(--accent);
+            padding-left: 10px;
+        }
+
+        .mobile-menu .nav-btn {
+            margin: 20px 0 0;
+            padding: 15px 25px;
+            font-size: 1.2rem;
+            text-align: center;
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Hero section */
+        .hero {
+            position: relative;
+            height: 90vh;
+            min-height: 700px;
+            max-height: 1000px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .slide.active {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .slide-1 { background-image:  url('images/mimi.png'); }
+        .slide-2 { background-image:  url('images/tradefare.jpg'); }
+        .slide-3 { background-image: url('images/itc-graduation.jpg'); }
+        .slide-4 { background-image:  url('images/trade.jpg'); }
+        .slide-5 { background-image:  url('images/hikvision.jpg'); }
+        .slide-6 { background-image: url('images/graduation.jpg'); }
+        .slide-7 { background-image:  url('images/graduate-today.jpg'); }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 1000px;
+            padding: 50px;
+            background: rgba(0, 0, 0, 0.45);
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .slide.active .hero-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .hero-content h1 {
+            font-family: 'Raleway', sans-serif;
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            color: white;
+            text-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(to right, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGlow 3s infinite alternate;
+        }
+
+        .hero-content p {
+            font-size: 1.6rem;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.9);
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--accent), #2a9d8f);
+            color: white;
+            padding: 18px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            border: 2px solid transparent;
+            gap: 12px;
+            transform: translateY(0);
+            animation: float 4s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+
+        .cta-button:hover:after {
+            transform: translateX(100%);
+        }
+
+        .cta-button:hover {
+            background: linear-gradient(135deg, #2a9d8f, var(--accent));
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid white;
+            animation-delay: 0.2s;
+        }
+
+        .cta-button.secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent);
+        }
+
+        /* Slide controls */
+        .slide-controls {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            display: flex;
+            gap: 15px;
+        }
+
+        .slide-dot {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .slide-dot:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: transparent;
+            transition: var(--transition);
+        }
+
+        .slide-dot.active, .slide-dot:hover {
+            background: transparent;
+            border: 2px solid white;
+        }
+
+        .slide-dot.active:before, .slide-dot:hover:before {
+            background: white;
+        }
+
+        /* Features section */
+        .features {
+            padding: 120px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 90px;
+        }
+
+        .section-title h2 {
+            font-family: 'Raleway', sans-serif;
+            font-size: 4rem;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 3px;
+        }
+
+        .section-title p {
+            font-size: 1.4rem;
+            color: var(--gray);
+            max-width: 800px;
+            margin: 40px auto 0;
+            line-height: 1.8;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 50px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border-top: 5px solid var(--accent);
+            transform: translateY(0);
+            z-index: 1;
+        }
+
+        .feature-card:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            color: white;
+        }
+
+        .feature-card:hover:after {
+            opacity: 1;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.2) rotate(10deg);
+            color: white;
+        }
+
+        .feature-card:hover h3,
+        .feature-card:hover p {
+            color: white;
+        }
+
+        .feature-card:hover .feature-btn {
+            background: white;
+            color: var(--primary);
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 30px;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .feature-card h3 {
+            font-size: 2rem;
+            margin-bottom: 25px;
+            color: var(--primary-dark);
+            transition: var(--transition);
+        }
+
+        .feature-card p {
+            color: var(--gray);
+            margin-bottom: 35px;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            line-height: 1.8;
+        }
+
+        .feature-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 14px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .feature-btn:hover {
+            background: transparent;
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Stats section */
+        .stats {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-box {
+            padding: 40px 30px;
+            background: var(--glass-bg);
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            transition: var(--transition);
+            border: 1px solid var(--glass-border);
+        }
+
+        .stat-box:hover {
+            transform: translateY(-10px) scale(1.02);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: var(--accent);
+            font-family: 'Raleway', sans-serif;
+        }
+
+        .stat-label {
+            font-size: 1.4rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 120px 20px;
+            background: var(--light);
+        }
+
+        .testimonial-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--box-shadow);
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-card:before {
+            content: "";
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 5rem;
+            color: var(--accent);
+            font-family: Georgia, serif;
+            opacity: 0.2;
+        }
+
+        .testimonial-content {
+            font-size: 1.1rem;
+            color: var(--dark);
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .author-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .author-info h4 {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+            color: var(--primary-dark);
+        }
+
+        .author-info p {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #2a9d8f, var(--accent));
+            text-align: center;
+            color: white;
+        }
+
+        .newsletter-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .newsletter h3 {
+            font-family: 'Raleway', sans-serif;
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+        }
+
+        .newsletter p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto;
+            gap: 15px;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 18px 25px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .newsletter-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .newsletter-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 80px 0 40px;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+        }
+
+        .footer-column h4 {
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .footer-column h4:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .footer-column p {
+            margin-bottom: 20px;
+            opacity: 0.8;
+            line-height: 1.8;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 60px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+
+        /* Scroll to top */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(20px);
+            z-index: 100;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .scroll-top.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            background: var(--primary);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); }
+            100% { text-shadow: 0 0 20px rgba(78, 205, 196, 0.8); }
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .hero-content h1 { font-size: 3.8rem; }
+            .section-title h2 { font-size: 3.2rem; }
+        }
+
+        @media (max-width: 992px) {
+            .hero-content h1 { font-size: 3.2rem; }
+            .hero-content p { font-size: 1.4rem; }
+            .section-title h2 { font-size: 2.8rem; }
+            .section-title p { font-size: 1.2rem; }
+            .hero { height: 80vh; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container { padding: 0 20px; }
+            .hero-content h1 { font-size: 2.6rem; }
+            .hero-content p { font-size: 1.2rem; }
+            .cta-buttons { gap: 20px; }
+            .cta-button { padding: 16px 35px; font-size: 1.1rem; }
+            .hero { height: 85vh; min-height: 700px; }
+            .hero-content { padding: 30px 20px; }
+            .newsletter-form { flex-direction: column; }
+            .newsletter-button { padding: 18px; }
+            
+            /* Mobile Navigation */
+            .nav-links, .nav-container > .nav-btn {
+                display: none;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-content h1 { font-size: 2.2rem; }
+            .section-title h2 { font-size: 2.2rem; }
+            .cta-buttons { flex-direction: column; gap: 15px; }
+            .cta-button { width: 100%; max-width: 300px; }
+            .slide-controls { bottom: 20px; }
+            .feature-card { padding: 40px 25px; }
+            .stat-number { font-size: 3.5rem; }
+            .mobile-menu {
+                width: 90%;
+                max-width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Header -->
-  <header>
-    <div class="header-content">
-      <h1>EduPathway</h1>
-      <p class="tagline">Your guide to the right education journey</p>
-      <p>Smart course decisions for students, parents, and educators</p>
-    </div>
-  </header>
-
-  <!-- Navigation -->
-  <nav>
-    <div class="nav-container">
-      <a href="#" class="logo">
-        <i class="fas fa-graduation-cap"></i>
-        EduPathway
-      </a>
-      <div class="nav-links">
-        <a href="index.html"><i class="fas fa-home"></i> Home</a>
-        <a href="#"><i class="fas fa-book-open"></i> Programmes</a
-        <a href="Institution.html"><i class="fas fa-users"></i> For Institutions</a>
-        <a href="#"><i class="fas fa-phone"></i> Contact</a>
-        <a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="slideshow-container">
-      <div class="slide slide-1 active"></div>
-      <div class="slide slide-2"></div>
-      <div class="slide slide-3"></div>
-      
-      <div class="hero-text">
-        <h2>Find your future. Choose your path.</h2>
-        <p>Explore courses, read real student reviews, and make informed decisions about your education journey.</p>
-        <div class="cta-buttons">
-          <a href="login.html"><i class="fas fa-user-plus"></i> Create Account</a>
-          <a href="courses" class="secondary"><i class="fas fa-search"></i> Explore Courses</a>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                EduPathway
+            </a>
+            
+            <div class="nav-links">
+                <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="programs.html"><i class="fas fa-book-open"></i> Programs</a>
+                <a href="Institution.html"><i class="fas fa-university"></i> Institutions</a>
+                <a href="#"><i class="fas fa-phone"></i> Contact</a>
+            </div>
+            
+            <a href="login.html" class="nav-btn"><i class="fas fa-sign-in-alt"></i> Login</a>
+            
+            <!-- Hamburger Menu -->
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu">
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="programs.html"><i class="fas fa-book-open"></i> Programs</a>
+            <a href="Institution.html"><i class="fas fa-university"></i> Institutions</a>
+            <a href="#"><i class="fas fa-phone"></i> Contact</a>
+            <a href="login.html" class="nav-btn"><i class="fas fa-sign-in-alt"></i> Login</a>
+        </div>
+        
+        <!-- Overlay -->
+        <div class="overlay"></div>
+    </nav>
 
-  <!-- Features Section -->
-  <section class="features">
-    <div class="section-title">
-      <h2>How EduPathway Helps You</h2>
-      <p>Our platform provides the tools and insights you need to make the best educational decisions</p>
-    </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="slideshow-container">
+            <!-- Slide 1 -->
+            <div class="slide slide-1 active">
+                <div class="hero-content">
+                    <h1>Discover Your Academic Journey</h1>
+                    <p>Find the perfect educational path tailored to your goals and aspirations</p>
+                    <div class="cta-buttons">
+                        <a href="login.html" class="cta-button"><i class="fas fa-user-graduate"></i> Get Started</a>
+                        <a href="programs.html" class="cta-button secondary"><i class="fas fa-search"></i> Explore Programs</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 2 -->
+            <div class="slide slide-2">
+                <div class="hero-content">
+                    <h1>Global Learning Opportunities</h1>
+                    <p>Access international programs and connect with institutions worldwide</p>
+                    <div class="cta-buttons">
+                        <a href="study_abroad.html" class="cta-button"><i class="fas fa-globe"></i> Study Abroad</a>
+                        <a href="visa-guidance.html" class="cta-button secondary"><i class="fas fa-passport"></i> Visa Guidance</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 3 -->
+            <div class="slide slide-3">
+                <div class="hero-content">
+                    <h1>Career-Focused Education</h1>
+                    <p>Programs designed to prepare you for tomorrow's job market</p>
+                    <div class="cta-buttons">
+                        <a href="careers.html" class="cta-button"><i class="fas fa-briefcase"></i> Career Paths</a>
+                        <a href="#" class="cta-button secondary"><i class="fas fa-chart-line"></i> Job Outlook</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 4 -->
+            <div class="slide slide-4">
+                <div class="hero-content">
+                    <h1>Personalized Guidance</h1>
+                    <p>Get tailored recommendations based on your skills and interests</p>
+                    <div class="cta-buttons">
+                        <a href="#" class="cta-button"><i class="fas fa-lightbulb"></i> Take Assessment</a>
+                        <a href="#" class="cta-button secondary"><i class="fas fa-user-cog"></i> Custom Pathway</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 5 -->
+            <div class="slide slide-5">
+                <div class="hero-content">
+                    <h1>Student Success Stories</h1>
+                    <p>Join thousands who have transformed their lives through education</p>
+                    <div class="cta-buttons">
+                        <a href="#" class="cta-button"><i class="fas fa-graduation-cap"></i> Alumni Network</a>
+                        <a href="#" class="cta-button secondary"><i class="fas fa-book-reader"></i> Success Stories</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 6 -->
+            <div class="slide slide-6">
+                <div class="hero-content">
+                    <h1>Cutting-Edge Learning</h1>
+                    <p>Access innovative programs with the latest teaching methodologies</p>
+                    <div class="cta-buttons">
+                        <a href="#" class="cta-button"><i class="fas fa-laptop-code"></i> Tech Programs</a>
+                        <a href="#" class="cta-button secondary"><i class="fas fa-flask"></i> Research Opportunities</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 7 -->
+            <div class="slide slide-7">
+                <div class="hero-content">
+                    <h1>Financial Support</h1>
+                    <p>Discover scholarships and funding options for your education</p>
+                    <div class="cta-buttons">
+                        <a href="#" class="cta-button"><i class="fas fa-gift"></i> Scholarships</a>
+                        <a href="#" class="cta-button secondary"><i class="fas fa-hand-holding-usd"></i> Financial Aid</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-controls">
+            <div class="slide-dot active" data-slide="0"></div>
+            <div class="slide-dot" data-slide="1"></div>
+            <div class="slide-dot" data-slide="2"></div>
+            <div class="slide-dot" data-slide="3"></div>
+            <div class="slide-dot" data-slide="4"></div>
+            <div class="slide-dot" data-slide="5"></div>
+            <div class="slide-dot" data-slide="6"></div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="section-title">
+            <h2>How EduPathway Works</h2>
+            <p>Our platform revolutionizes educational planning with innovative tools and resources</p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3>AI-Powered Matching</h3>
+                <p>Our algorithm matches you with ideal programs based on your skills, interests, and career goals.</p>
+                <a href="#" class="feature-btn">Discover More</a>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-network"></i>
+                </div>
+                <h3>Career Analytics</h3>
+                <p>Access real-time data on employment outcomes, salary projections, and industry demand.</p>
+                <a href="#" class="feature-btn">View Analytics</a>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <h3>Global Opportunities</h3>
+                <p>Discover study abroad programs and international partnerships with leading institutions.</p>
+                <a href="#" class="feature-btn">Explore Programs</a>
+            </div>
+        </div>
+    </section>
     
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">
-          <i class="fas fa-user-graduate"></i>
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-box">
+                <div class="stat-number">7,500+</div>
+                <div class="stat-label">Programs Offered</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">98%</div>
+                <div class="stat-label">Satisfaction Rate</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">120+</div>
+                <div class="stat-label">Countries</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">350K+</div>
+                <div class="stat-label">Active Students</div>
+            </div>
         </div>
-        <h3>For Students</h3>
-        <p>Browse reviews, compare courses, and choose the best academic path based on real student experiences and insights.</p>
-        <a href="login.html" class="feature-btn">Student Resources</a>
-      </div>
-      
-      <div class="feature-card">
-        <div class="feature-icon">
-          <i class="fas fa-chalkboard-teacher"></i>
-        </div>
-        <h3>For Lecturers</h3>
-        <p>Gain valuable feedback and improve teaching methods with authentic student reviews and course analytics.</p>
-        <a href="login.html" class="feature-btn">Lecturer Portal</a>
-      </div>
-      
-      <div class="feature-card">
-        <div class="feature-icon">
-          <i class="fas fa-tools"></i>
-        </div>
-        <h3>For Admin</h3>
-        <p>Manage accounts, update course information, and monitor platform activity with our comprehensive admin tools.</p>
-        <a href="#" class="feature-btn">Admin Dashboard</a>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Stats Section -->
-  <section class="stats">
-    <div class="stats-container">
-      <div class="stat-box">
-        <div class="stat-number">5,000+</div>
-        <div class="stat-label">Courses</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-number">15,000+</div>
-        <div class="stat-label">Student Reviews</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-number">98%</div>
-        <div class="stat-label">Satisfaction Rate</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-number">50+</div>
-        <div class="stat-label">Partner Institutions</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonials -->
-  <section class="testimonials">
-    <div class="section-title">
-      <h2>Success Stories</h2>
-      <p>Hear from students and educators who transformed their academic journey with EduPathway</p>
-    </div>
+    </section>
     
-    <div class="testimonials-grid">
-      <div class="testimonial-card">
-        <div class="testimonial-content">
-          "EduPathway helped me choose the perfect course for my career goals. The student reviews gave me insights I couldn't find anywhere else!"
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="section-title">
+            <h2>Student Success Stories</h2>
+            <p>Hear from students who transformed their academic journey with EduPathway</p>
         </div>
-        <div class="testimonial-author">
-          <div class="author-avatar">SJ</div>
-          <div class="author-info">
-            <h4>Idah Nkhata</h4>
-            <p>Computer Science Student</p>
-          </div>
+        
+        <div class="testimonial-container">
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    "EduPathway helped me discover a program I didn't even know existed. The AI matching system perfectly aligned with my interests and led to my dream career."
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-img">SJ</div>
+                    <div class="author-info">
+                        <h4>Sarah Johnson</h4>
+                        <p>Data Scientist, TechCorp</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    "The platform's comprehensive analytics helped me choose the perfect program. I'm now pursuing my passion with confidence."
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-img">MR</div>
+                    <div class="author-info">
+                        <h4>Michael Rodriguez</h4>
+                        <p>Engineering Student</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    "As an international student, EduPathway helped me navigate the complex landscape of overseas education. The country-specific guidance was invaluable."
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-img">AC</div>
+                    <div class="author-info">
+                        <h4>Aisha Chen</h4>
+                        <p>MBA Student</p>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      
-      <div class="testimonial-card">
-        <div class="testimonial-content">
-          "As a parent, I appreciate the transparency EduPathway provides. It helped my daughter make an informed decision about her future."
-        </div>
-        <div class="testimonial-author">
-          <div class="author-avatar">MR</div>
-          <div class="author-info">
-            <h4>Mrs Mubita</h4>
-            <p>Parent of High School Senior</p>
-          </div>
-        </div>
-      </div>
-      
-      <div class="testimonial-card">
-        <div class="testimonial-content">
-          "The feedback we get through EduPathway has been invaluable for improving our curriculum and teaching methods."
-        </div>
-        <div class="testimonial-author">
-          <div class="author-avatar">DP</div>
-          <div class="author-info">
-            <h4>Mr Lloyd </h4>
-            <p>Professor & Department Head</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Apply Section -->
-  <section class="apply-section">
-    <div class="apply-content">
-      <h2>🎓 Ready to Start Your Journey?</h2>
-      <p>Apply to available programs directly through EduPathway and take the first step toward your future</p>
-      <a href="apply.html" class="apply-button">Apply Now <i class="fas fa-arrow-right"></i></a>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <div class="footer-content">
-      <div class="footer-section">
-        <h3>About EduPathway</h3>
-        <p>EduPathway is a smart course decision platform that helps students, parents, and future applicants find and follow the best academic path based on reviews, insights, and smart recommendations.</p>
-      </div>
-      
-      <div class="footer-section">
-        <h3>Quick Links</h3>
-        <ul class="footer-links">
-          <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
-          <li><a href="#"><i class="fas fa-chevron-right"></i> Courses</a></li>
-          <li><a href="#"><i class="fas fa-chevron-right"></i> Student Reviews</a></li>
-          <li><a href="#"><i class="fas fa-chevron-right"></i> For Institutions</a></li>
-          <li><a href="#"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
-        </ul>
-      </div>
-      
-      <div class="footer-section">
-        <h3>Contact Us</h3>
-        <ul class="footer-links">
-          <li><a href="#"><i class="fas fa-map-marker-alt"></i> 123 Education St, Campus City</a></li>
-          <li><a href="mailto:info@edupathway.com"><i class="fas fa-envelope"></i> info@edupathway.com</a></li>
-          <li><a href="tel:+11234567890"><i class="fas fa-phone"></i> +1 (123) 456-7890</a></li>
-        </ul>
-      </div>
-    </div>
+    </section>
     
-    <div class="copyright">
-      <p>&copy; 2025 EduPathway | Developed by Mirriam Mubita & Team</p>
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="newsletter-container">
+            <h3>Start Your Educational Journey</h3>
+            <p>Subscribe for program updates, scholarship alerts, and career opportunities</p>
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Enter your email address">
+                <button type="submit" class="newsletter-button">Subscribe</button>
+            </form>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>EduPathway</h4>
+                <p>Transforming education through innovative technology to create personalized learning pathways for every student.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Programs</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Institutions</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Student Reviews</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Learning Blog</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Career Assessment</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Scholarship Finder</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Webinars & Events</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Contact Us</h4>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Education Avenue, San Francisco, CA</p>
+                <p><i class="fas fa-phone"></i> +1 (800) EDU-PATH</p>
+                <p><i class="fas fa-envelope"></i> info@edupathway.com</p>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2023 EduPathway. All rights reserved. | Designed for the future of education
+        </div>
+    </footer>
+    
+    <!-- Scroll to top button -->
+    <div class="scroll-top">
+        <i class="fas fa-arrow-up"></i>
     </div>
-  </footer>
 
-  <script>
-    // Slideshow functionality
-    let slideIndex = 0;
-    const slides = document.querySelectorAll('.slide');
-    
-    function showSlides() {
-      // Hide all slides
-      slides.forEach(slide => {
-        slide.classList.remove('active');
-      });
-      
-      // Show current slide
-      slides[slideIndex].classList.add('active');
-      
-      // Move to next slide
-      slideIndex = (slideIndex + 1) % slides.length;
-      
-      // Change slide every 5 seconds
-      setTimeout(showSlides, 5000);
-    }
-    
-    // Initialize slideshow
-    document.addEventListener('DOMContentLoaded', showSlides);
-  </script>
+    <script>
+        // Mobile Menu Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const overlay = document.querySelector('.overlay');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+        
+        overlay.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        // Close menu when clicking on links
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Slideshow functionality with 7 slides
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.slide-dot');
+        const slideCount = slides.length;
+        let slideInterval;
+        
+        // Initialize slideshow
+        function initSlideshow() {
+            // Start auto slideshow
+            startAutoSlide();
+            
+            // Add event listeners to dots
+            dots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    const slideIndex = parseInt(this.getAttribute('data-slide'));
+                    goToSlide(slideIndex);
+                });
+            });
+        }
+        
+        // Start auto slideshow
+        function startAutoSlide() {
+            slideInterval = setInterval(() => {
+                goToSlide((currentSlide + 1) % slideCount);
+            }, 5000); // Change slide every 5 seconds
+        }
+        
+        // Go to specific slide
+        function goToSlide(n) {
+            // Clear current interval
+            clearInterval(slideInterval);
+            
+            // Remove active class from current slide and dot
+            slides[currentSlide].classList.remove('active');
+            dots[currentSlide].classList.remove('active');
+            
+            // Update current slide
+            currentSlide = n;
+            
+            // Add active class to new slide and dot
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+            
+            // Restart auto slideshow
+            startAutoSlide();
+        }
+        
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', initSlideshow);
+        
+        // Add scroll animations for feature cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const featureCards = document.querySelectorAll('.feature-card');
+            const testimonialCards = document.querySelectorAll('.testimonial-card');
+            
+            // Initialize Intersection Observer for animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // Observe elements
+            featureCards.forEach(card => {
+                card.style.opacity = '0';
+                observer.observe(card);
+            });
+            
+            testimonialCards.forEach(card => {
+                card.style.opacity = '0';
+                observer.observe(card);
+            });
+        });
+        
+        // Scroll to top button functionality
+        const scrollTopBtn = document.querySelector('.scroll-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('active');
+            } else {
+                scrollTopBtn.classList.remove('active');
+            }
+        });
+        
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Newsletter form submission
+        const newsletterForm = document.querySelector('.newsletter-form');
+        if(newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const emailInput = this.querySelector('.newsletter-input');
+                if(emailInput.value && emailInput.value.includes('@')) {
+                    alert('Thank you for subscribing to EduPathway!');
+                    emailInput.value = '';
+                } else {
+                    alert('Please enter a valid email address.');
+                }
+            });
+        }
+        
+        // Floating animation for feature cards on hover
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.animation = 'float 3s ease-in-out infinite';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.animation = '';
+            });
+        });
+    </script>
 </body>
 </html>
